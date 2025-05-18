@@ -12,9 +12,9 @@ document.getElementById('send').addEventListener('click', async () => {
   try {
     let result;
     switch (method) {
-      case 'GET':
-        result = await api.get(route, param, query);
-        break;
+      case 'GET': result = await api.get(route, param, query); break;
+      case 'DELETE': result = await api.delete(route, param, query); break;
+    
       default:
         throw new Error(`HTTP method "${method}" not supported yet.`);
     }
