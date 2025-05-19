@@ -38,11 +38,22 @@ class HTTPLibrary {
         let url = this.baseUrl;
         if (route) url += `/${route}`;
         if (param) url += `/${param}`;
-        if (query) url += `?${query}`
+        if (query) url += (typeof query === 'string') ? `?${query}` : `?${this.buildQuerryString(query)}`;
         
         console.log("Built URL:", url);
         return url;
     }
+
+    buildQuerryString(query) {
+    let queryString = '';
+    if (typeof query === 'object' && query !== null) {
+        queryString = Object.entries(query)
+            .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+            .join('&');
+    }
+    console.log(queryString);
+    return queryString;
+}
            
 }
 

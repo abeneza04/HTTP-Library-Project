@@ -4,10 +4,17 @@ document.getElementById('send').addEventListener('click', async () => {
   const method = document.getElementById('request').value;
   const route = document.getElementById('route').value.trim();
   const param = document.getElementById('param').value.trim();
-  const query = document.getElementById('queries').value.trim();
+  let query = document.getElementById('queries').value.trim();
   const dataInput = document.getElementById('data').value.trim();
   const output = document.getElementById('output');
   output.textContent = ''; 
+
+  try {
+    query = JSON.parse(query);
+    console.log("Parse successfull!");
+  } catch (error) {
+    console.log("Not JSON");
+  }
 
   try {
     let result;
