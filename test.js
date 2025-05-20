@@ -37,8 +37,8 @@ document.getElementById('send').addEventListener('click', async () => {
       default:
         throw new Error(`HTTP method "${method}" not supported yet.`);
     }
-
-    output.innerHTML = `<p>${JSON.stringify(result)}</p>`;
+    
+    output.innerHTML = updatePage(result);
   } catch (error) {
     output.innerHTML = `
       <div class="error-message">
@@ -48,7 +48,28 @@ document.getElementById('send').addEventListener('click', async () => {
   }
 });
 
-
-
+function updatePage(value) {
+  if (typeof value === 'object' && value !== null) {
+    const isArray = Array.isArray(value);
+    if (isArray) {
+      return value.map((item) => {
+        const id = item.id !== undefined ? `<h4>User ID: ${item.id}</h4>` : '';
+        return `
+          <div>
+            ${id}
+            ${updatePage(item)}
+          </div>
+        `;
+      }).join('');
+    }
+    const children = Object.entries(value).map(([key, val])=> {
+      const content = updatePage(val);
+      return `<li><strong>${isArray? '': key} : </strong>${content}</li>`;
+    });
+    return `<ul>${children.join('')}`;
+  } else {
+    return String(value);
+  }
+}
   
 
