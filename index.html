@@ -1,52 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AJAX Demo</title>
+   <meta charset="UTF-8">
+   <title>HTTP Client Tester</title>
+   <link rel="stylesheet" href="styles.css">
+   <script src="httpClient.js" defer></script>
+   <script src="app.js" defer></script>
 </head>
 <body>
-    <label for="request">Request Type: </label>
-    <select id="request" name="request">
-        <option value="GET">GET</option>
-        <option value="POST">POST</option>
-        <option value="PUT">PUT</option>
-        <option value="DELETE">DELETE</option>
-        <option value="PATCH">PATCH</option>
-    </select>
+   <h1>Test HTTP Client</h1>
+   <form id="apiForm">
+      <label>Request Type:</label>
+      <select id="method">
+         <option>GET</option>
+         <option>POST</option>
+         <option>PUT</option>
+         <!-- Exceed Expectations Requirement: PATCH in UI-->
+         <option>PATCH</option>
+         <option>DELETE</option>
+      </select><br><br>
 
-    <label for="route">Enter route: </label>
-    <input type="text" id="route" placeholder="users">  
+      <label>Endpoint (e.g., /users or /users/1):</label><br>
+      <input type="text" id="endpoint" placeholder="/users"><br><br>
 
-    <label for="param">Enter parameters: </label>
-    <input type="text" id="param" placeholder="1">
+      <label>Query Params (JSON):</label><br>
+      <textarea id="query"></textarea><br><br>
 
-    <label for="queries">Enter queries: </label>
-     <textarea id="queries" rows="5" cols="40" placeholder=
-    'name=Leanne%20Graham&username=Bret&email=Sincere%40april
-        OR
-    {
-        "name": "Leanne Graham",
-        "username":"Bret",
-        "email":"Sincere@april.biz"
-    }
-    '></textarea>
+      <label>Body (JSON):</label><br>
+      <textarea id="body"></textarea><br><br>
 
+      <button type="submit">Send Request</button>
+   </form>
 
-    <label for="data">Data for update: </label>
-    <textarea id="data" rows="5" cols="40" placeholder=
-    '{
-        "name": "Leanne Graham",
-        "username":"Bret",
-        "email":"Sincere@april.biz"
-    }'></textarea>
-
-
-    <button id="send">Send Request</button>
-    
-    <div id="output"></div>
-    
-    <script src="httpLibrary.js"></script>
-    <script src="test.js"></script>
+   <h2>Response:</h2>
+   <!-- Exceed Expectation Requirement: Structured JSON-->
+   <pre id="response"></pre>
 </body>
 </html>
