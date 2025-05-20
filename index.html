@@ -12,6 +12,7 @@
         <option value="POST">POST</option>
         <option value="PUT">PUT</option>
         <option value="DELETE">DELETE</option>
+        <option value="PATCH">PATCH</option>
     </select>
 
     <label for="route">Enter route: </label>
@@ -21,7 +22,16 @@
     <input type="text" id="param" placeholder="1">
 
     <label for="queries">Enter queries: </label>
-    <input type="text" id="queries">
+     <textarea id="queries" rows="5" cols="40" placeholder=
+    'name=Leanne%20Graham&username=Bret&email=Sincere%40april
+        OR
+    {
+        "name": "Leanne Graham",
+        "username":"Bret",
+        "email":"Sincere@april.biz"
+    }
+    '></textarea>
+
 
     <label for="data">Data for update: </label>
     <textarea id="data" rows="5" cols="40" placeholder=
