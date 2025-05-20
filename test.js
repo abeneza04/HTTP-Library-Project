@@ -9,7 +9,7 @@ document.getElementById('send').addEventListener('click', async () => {
   const output = document.getElementById('output');
   output.textContent = ''; 
 
-  let query={};
+  let query=queryInput;
   try {
     query = JSON.parse(queryInput);
     console.log("Parse successfull!");
@@ -17,7 +17,7 @@ document.getElementById('send').addEventListener('click', async () => {
     console.log("Not JSON");
   }
 
-  let data = {};
+  let data = dataInput;
   try {
     data = JSON.parse(dataInput);
     console.log("Parse successful!");
