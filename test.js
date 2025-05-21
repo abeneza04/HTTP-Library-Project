@@ -1,75 +1,43 @@
-const api = new HTTPLibrary('https://jsonplaceholder.typicode.com');
-
-document.getElementById('send').addEventListener('click', async () => {
-  const method = document.getElementById('request').value;
-  const route = document.getElementById('route').value.trim();
-  const param = document.getElementById('param').value.trim();
-  const queryInput = document.getElementById('queries').value;
-  const dataInput = document.getElementById('data').value;
-  const output = document.getElementById('output');
-  output.textContent = ''; 
-
-  let query=queryInput;
-  try {
-    query = JSON.parse(queryInput);
-    console.log("Parse successfull!");
-  } catch (error) {
-    console.log("Not JSON");
-  }
-
-  let data = dataInput;
-  try {
-    data = JSON.parse(dataInput);
-    console.log("Parse successful!");
-  } catch (error) {
-    console.log("Not JSON, sending empty object");
-  }
-
-  try {
-    let result;
-    switch (method) {
-      case 'GET': result = await api.get(route, param, query); break;
-      case 'DELETE': result = await api.delete(route, param, query); break;
-      case 'POST': result = await api.post(route, param, query, data); break;
-      case 'PUT': result = await api.put(route, param, query, data); break;
-      case 'PATCH': result = await api.patch(route, param, query, data); break;
-    
-      default:
-        throw new Error(`HTTP method "${method}" not supported yet.`);
-    }
-    
-    output.innerHTML = updatePage(result);
-  } catch (error) {
-    output.innerHTML = `
-      <div class="error-message">
-        <strong>Error:</strong> ${error.message}
-      </div>
-    `;
-  }
+const client = new HttpClient("https://jsonplaceholder.typicode.com");
+ 
+document.querySelector("#apiForm").addEventListener("submit", async function (e) {
+   // Exceed Expectations requirement: Structured JSON
+    e.preventDefault();
+ 
+   const method = document.querySelector("#method").value;
+   const endpoint = document.querySelector("#endpoint").value;
+   const query = document.querySelector("#query").value;
+   const body = document.querySelector("#body").value;
+ 
+   let queryParams = {};
+   let data = null;
+ 
+   try {
+      if (query) queryParams = JSON.parse(query);
+      if (body) data = JSON.parse(body);
+   } catch (err) {
+      document.querySelector("#response").textContent = "Invalid JSON in query or body.";
+      return;
+   }
+ 
+   let result;
+   switch (method) {
+      case "GET":
+         result = await client.get(endpoint, queryParams);
+         break;
+      case "POST":
+         result = await client.post(endpoint, data);
+         break;
+      case "PUT":
+         result = await client.put(endpoint, data);
+         break;
+      case "PATCH":
+         result = await client.patch(endpoint, data);
+         break;
+      case "DELETE":
+         result = await client.delete(endpoint);
+         break;
+   }
+ 
+   document.querySelector("#response").textContent = JSON.stringify(result, null, 2);
 });
-
-function updatePage(value) {
-  if (typeof value === 'object' && value !== null) {
-    const isArray = Array.isArray(value);
-    if (isArray) {
-      return value.map((item) => {
-        const id = item.id !== undefined ? `<h4>User ID: ${item.id}</h4>` : '';
-        return `
-          <div>
-            ${id}
-            ${updatePage(item)}
-          </div>
-        `;
-      }).join('');
-    }
-    const children = Object.entries(value).map(([key, val])=> {
-      const content = updatePage(val);
-      return `<li><strong>${isArray? '': key} : </strong>${content}</li>`;
-    });
-    return `<ul>${children.join('')}`;
-  } else {
-    return String(value);
-  }
-}
-  
-
