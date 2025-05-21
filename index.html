@@ -1,52 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AJAX Demo</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AJAX Demo</title>
 </head>
 <body>
-    <label for="request">Request Type: </label>
-    <select id="request" name="request">
-        <option value="GET">GET</option>
-        <option value="POST">POST</option>
-        <option value="PUT">PUT</option>
-        <option value="DELETE">DELETE</option>
-        <option value="PATCH">PATCH</option>
+  <form id="apiForm">
+    <label for="method">Request Type: </label>
+    <select id="method" name="request">
+      <option value="GET">GET</option>
+      <option value="POST">POST</option>
+      <option value="PUT">PUT</option>
+      <option value="DELETE">DELETE</option>
+      <option value="PATCH">PATCH</option>
     </select>
 
-    <label for="route">Enter route: </label>
-    <input type="text" id="route" placeholder="users">  
+    <label for="endpoint">Enter route: </label>
+    <input type="text" id="endpoint" placeholder="users" />
 
-    <label for="param">Enter parameters: </label>
-    <input type="text" id="param" placeholder="1">
+    <label for="query">Enter queries: </label>
+    <textarea id="query" rows="5" cols="40" placeholder='{"username":"Bret"}'></textarea>
 
-    <label for="queries">Enter queries: </label>
-     <textarea id="queries" rows="5" cols="40" placeholder=
-    'name=Leanne%20Graham&username=Bret&email=Sincere%40april
-        OR
-    {
-        "name": "Leanne Graham",
-        "username":"Bret",
-        "email":"Sincere@april.biz"
-    }
-    '></textarea>
-
-
-    <label for="data">Data for update: </label>
-    <textarea id="data" rows="5" cols="40" placeholder=
-    '{
-        "name": "Leanne Graham",
-        "username":"Bret",
-        "email":"Sincere@april.biz"
+    <label for="body">Data for update: </label>
+    <textarea id="body" rows="5" cols="40" placeholder='{
+      "name": "Leanne Graham",
+      "username":"Bret",
+      "email":"Sincere@april.biz"
     }'></textarea>
 
+    <button type="submit">Send Request</button>
+  </form>
 
-    <button id="send">Send Request</button>
-    
-    <div id="output"></div>
-    
-    <script src="httpLibrary.js"></script>
-    <script src="test.js"></script>
+  <div id="response"></div>
+
+  <script src="httpClient.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
